@@ -21,9 +21,8 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
-        //
         FacadesGate::before(function($user, $ability){
-            if($user->hasRole('manager')){
+            if($user->hasRole('super_admin')){
                 return true;
             }
         });
