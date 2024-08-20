@@ -22,8 +22,8 @@ class StoreTestimonialRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'message'=>['required','string','mas:255'],
-            'project_client_id'=>['required','string','mas:255'],
+            'message'=>['required','string','max:255'],
+            'project_client_id'=>['required','string','max:255'],
             'thumbnail'=>['required','image','mimes:jpg,png,jpeg'],
         ];
     }

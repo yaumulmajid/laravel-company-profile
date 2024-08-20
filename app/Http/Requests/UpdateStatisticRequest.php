@@ -22,9 +22,9 @@ class UpdateStatisticRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'name'=>['required','string','max:255'],
-            'goal'=>['required','string','max:255'],
-            'icon'=>['sometimes','string','mines:jpg,png,jpeg'],
+            'name'=>['sometimes','string','max:255'],
+            'goal'=>['sometimes','string','max:255'],
+            'icon'=>['sometimes','image','mimes:jpg,png,jpeg'],
         ];
     }
 }

@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('project_clients', function (Blueprint $table) {
             $table->id();
             $table->string('name');
-            $table->string('ocupation');
+            $table->string('occupation');
             $table->string('avatar');
             $table->string('logo');
             $table->softDeletes();

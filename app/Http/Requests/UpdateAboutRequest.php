@@ -22,10 +22,10 @@ class UpdateAboutRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'name'=>['required','string','max:255'],
-            'type'=>['required','string','max:255'],
-            'thumbnail'=>['required','image','mimes:png.jpg.jpeg'],
-            'keypoints.*'=>['required|string|max:255'],
+            'name'=>['sometimes','string','max:255'],
+            'type'=>['sometimes','string','max:255'],
+            'thumbnail'=>['sometimes','image','mimes:jpg,png,jpeg'],
+            'keypoints.*'=>['sometimes','string','max:255'],
         ];
     }
 }

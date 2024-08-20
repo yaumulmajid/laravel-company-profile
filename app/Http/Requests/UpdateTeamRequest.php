@@ -22,9 +22,9 @@ class UpdateTeamRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'name'=>['required','string','mas:255'],
-            'occupation'=>['required','string','mas:255'],
-            'location'=>['required','string','mas:255'],
+            'name'=>['sometimes','string','max:255'],
+            'occupation'=>['sometimes','string','max:255'],
+            'location'=>['sometimes','string','max:255'],
             'avatar'=>['sometimes','image','mimes:jpg,png,jpeg'],
         ];
     }

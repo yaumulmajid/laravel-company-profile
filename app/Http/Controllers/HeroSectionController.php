@@ -2,8 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\StoreHeroSectionRequest;
+use App\Http\Requests\UpdateHeroSectionRequest;
 use App\Models\HeroSection;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class HeroSectionController extends Controller
 {
@@ -21,15 +24,26 @@ class HeroSectionController extends Controller
      */
     public function create()
     {
-        return view('admin.hero_sections.index');
+        return view('admin.hero_sections.create');
     }
 
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(StoreHeroSectionRequest $request)
     {
-        //
+        DB::transaction(function() use ($request){
+            $validated = $request->validated();
+
+            if($request->hasFile('banner')){
+                $iconPath = $request->file('banner')->store('banners', 'public');
+                $validated['banner']=$iconPath;
+            }
+
+            $newDataRecord = HeroSection::create($validated);
+        });
+
+        return redirect()->route('admin.hero_sections.index');
     }
 
     /**
@@ -37,7 +51,7 @@ class HeroSectionController extends Controller
      */
     public function show(HeroSection $heroSection)
     {
-        //
+        
     }
 
     /**
@@ -45,15 +59,26 @@ class HeroSectionController extends Controller
      */
     public function edit(HeroSection $heroSection)
     {
-        //
+        return view('admin.hero_sections.edit', compact('heroSection'));
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, HeroSection $heroSection)
+    public function update(UpdateHeroSectionRequest $request, HeroSection $heroSection)
     {
-        //
+        DB::transaction(function() use ($request, $heroSection){
+            $validated = $request->validated();
+
+            if($request->hasFile('banner')){
+                $iconPath = $request->file('banner')->store('banners', 'public');
+                $validated['banner']=$iconPath;
+            }
+
+            $heroSection->update($validated);
+        });
+
+        return redirect()->route('admin.hero_sections.index');
     }
 
     /**
@@ -61,6 +86,9 @@ class HeroSectionController extends Controller
      */
     public function destroy(HeroSection $heroSection)
     {
-        //
+        DB::transaction(function() use ($heroSection){
+            $heroSection->delete();
+        });
+        return redirect()->route('admin.hero_sections.index');
     }
 }

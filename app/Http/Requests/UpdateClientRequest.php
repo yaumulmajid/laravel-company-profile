@@ -22,10 +22,10 @@ class UpdateClientRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'name'=>['required','string','max:255'],
-            'occupation'=>['required','string','mas:255'],
-            'avatar'=>['required','image','mimes:png.jpg.jpeg'],
-            'logo'=>['required','image','mimes:png.jpg.jpeg'],
+            'name'=>['sometimes','string','max:255'],
+            'occupation'=>['sometimes','string','max:255'],
+            'avatar'=>['sometimes','image','mimes:jpg,png,jpeg'],
+            'logo'=>['sometimes','image','mimes:jpg,png,jpeg'],
         ];
     }
 }

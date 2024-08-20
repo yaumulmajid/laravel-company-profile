@@ -20,7 +20,7 @@
                         <img src="{{Storage::url($statistic->icon)}} " alt="" class="rounded-2xl object-cover w-[90px] h-[90px]">
                         <div class="flex flex-col">
                             <h3 class="text-indigo-950 text-xl font-bold">
-                                {{$statistis->name}}
+                                {{$statistic->name}}
                             </h3>
                         </div>
                     </div> 
@@ -34,7 +34,7 @@
                         <a href="{{route('admin.statistics.edit', $statistic)}}" class="font-bold py-4 px-6 bg-indigo-700 text-white rounded-full">
                             Edit
                         </a>
-                        <form action="{{route('admin.statistics.destroy')}}" method="POST"> 
+                        <form action="{{route('admin.statistics.destroy', $statistic)}}" method="POST"> 
                             @csrf
                             @method('DELETE')
                             <button type="submit" class="font-bold py-4 px-6 bg-red-700 text-white rounded-full">

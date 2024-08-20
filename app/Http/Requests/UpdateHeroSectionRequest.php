@@ -22,11 +22,11 @@ class UpdateHeroSectionRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'heading'=>['required','string','max:255'],
-            'achievement'=>['required','string','mas:255'],
-            'subheading'=>['required','string','mas:255'],
-            'path_video'=>['required','string','mas:255'],
-            'banner'=>['required','image','mimes:png.jpg.jpeg'],
+            'heading'=>['sometimes','string','max:255'],
+            'achievement'=>['sometimes','string','max:255'],
+            'subheading'=>['sometimes','string','max:255'],
+            'path_video'=>['sometimes','string','max:255'],
+            'banner'=>['sometimes','image','mimes:jpg,png,jpeg'],
         ];
     }
 }

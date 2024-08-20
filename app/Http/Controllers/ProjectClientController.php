@@ -2,8 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\StoreClientRequest;
+use App\Http\Requests\UpdateClientRequest;
 use App\Models\ProjectClient;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class ProjectClientController extends Controller
 {
@@ -21,15 +24,31 @@ class ProjectClientController extends Controller
      */
     public function create()
     {
-        return view('admin.clients.index');
+        return view('admin.clients.create');
     }
 
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(StoreClientRequest $request)
     {
-        //
+        DB::transaction(function() use ($request){
+            $validated = $request->validated();
+
+            if($request->hasFile('avatar')){
+                $iconPath = $request->file('avatar')->store('avatars', 'public');
+                $validated['avatar']=$iconPath;
+            }
+
+            if($request->hasFile('logo')){
+                $iconPath = $request->file('logo')->store('logos', 'public');
+                $validated['logo']=$iconPath;
+            }
+
+            $newDataRecord = ProjectClient::create($validated);
+        });
+
+        return redirect()->route('admin.clients.index');
     }
 
     /**
@@ -43,24 +62,43 @@ class ProjectClientController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(ProjectClient $projectClient)
+    public function edit(ProjectClient $client)
     {
-        //
+        return view('admin.clients.edit', compact('client'));
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, ProjectClient $projectClient)
+    public function update(UpdateClientRequest $request, ProjectClient $client)
     {
-        //
+        DB::transaction(function() use ($request, $client){
+            $validated = $request->validated();
+
+            if($request->hasFile('avatar')){
+                $iconPath = $request->file('avatar')->store('avatars', 'public');
+                $validated['avatar']=$iconPath;
+            }
+
+            if($request->hasFile('logo')){
+                $iconPath = $request->file('logo')->store('logos', 'public');
+                $validated['logo']=$iconPath;
+            }
+
+            $client->update($validated);
+        });
+
+        return redirect()->route('admin.clients.index');
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(ProjectClient $projectClient)
+    public function destroy(ProjectClient $client)
     {
-        //
+        DB::transaction(function() use ($client){
+            $client->delete();
+        });
+        return redirect()->route('admin.clients.index');
     }
 }

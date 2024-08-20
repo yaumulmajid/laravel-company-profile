@@ -23,9 +23,9 @@ class StoreClientRequest extends FormRequest
     {
         return [
             'name'=>['required','string','max:255'],
-            'occupation'=>['required','string','mas:255'],
-            'avatar'=>['required','image','mimes:png.jpg.jpeg'],
-            'logo'=>['required','image','mimes:png.jpg.jpeg'],
+            'occupation'=>['required','string','max:255'],
+            'avatar'=>['required','image','mimes:jpg,png,jpeg'],
+            'logo'=>['required','image','mimes:jpg,png,jpeg'],
         ];
     }
 }

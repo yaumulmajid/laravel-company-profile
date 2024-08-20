@@ -22,10 +22,10 @@ class UpdateProductRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'name'=>['required','string','mas:255'],
-            'tagline'=>['required','string','mas:255'],
-            'thumbnail'=>['required','image','mimes:png.jpg.jpeg'],
-            'about'=>['required','string','mas:24545'],
+            'name'=>['sometimes','string','max:255'],
+            'tagline'=>['sometimes','string','max:255'],
+            'thumbnail'=>['sometimes','image','mimes:jpg,png,jpeg'],
+            'about'=>['sometimes','image','mimes:jpg,png,jpeg'],
         ];
     }
 }

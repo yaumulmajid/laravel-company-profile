@@ -24,7 +24,7 @@ class StoreAppointmentRequest extends FormRequest
         return [
             'name'=>['required','string','max:255'],
             'meeting_at'=>['required','date'],
-            'phone_number'=>['required','image','mimes:png.jpg.jpeg'],
+            'phone_number'=>['required','image','mimes:jpg,png,jpeg'],
             'email'=>['required|string|max:255'],
             'product_id'=>['required|integer'],
             'budget'=>['required|integer'],
