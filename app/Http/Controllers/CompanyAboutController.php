@@ -42,13 +42,14 @@ class CompanyAboutController extends Controller
 
             $newDataRecord = CompanyAbout::create($validated);
 
-            if(!empty($validated['keypoint'])){
-                foreach ($$validated['keypoint'] as $keypoint) {
-                    $newDataRecord->keypoint()->create([
+            if(!empty($validated['keypoints'])){
+                foreach ($validated['keypoints'] as $keypoint) {
+                    $newDataRecord->keypoints()->create([
                         'keypoint'=>$keypoint
                     ]);
                 }
             }
+            
         });
 
         return redirect()->route('admin.abouts.index');
@@ -83,16 +84,16 @@ class CompanyAboutController extends Controller
                 $validated['thumbnail']=$iconPath;
             }
 
-            if(!empty($validated['keypoint'])){
+            $about->update($validated);
+
+            if(!empty($validated['keypoints'])){
                 $about->keypoints()->delete();
-                foreach ($$validated['keypoint'] as $keypoint) {
-                    $newDataRecord->keypoint()->create([
-                        'keypoint'=>$keypoint
+                foreach ($validated['keypoints'] as $keypoint) {
+                    $about->keypoint()->create([
+                        'keypoint'=>$keypoint,
                     ]);
                 }
             }
-
-            $about->update($validated);
         });
 
         return redirect()->route('admin.abouts.index');
