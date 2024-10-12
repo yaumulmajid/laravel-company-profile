@@ -4,3 +4,8 @@
 
 [build.environment]
   PHP_VERSION = "8.2"
+
+[[redirects]]
+  from = "/*"
+  to = "/index.php"
+  status = 200
