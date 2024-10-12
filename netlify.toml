@@ -1,6 +1,6 @@
 [build]
   publish = "public"
-  command = "composer install && php artisan build"
+  command = "composer install"
 
 [build.environment]
   PHP_VERSION = "8.2"
